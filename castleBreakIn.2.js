@@ -157,14 +157,28 @@ class Block extends Sprite {
         game.removeSprite(this);
         Block.blocksToDestroy = Block.blocksToDestroy - 1;
         if (Block.blocksToDestroy <= 0) {
-            game.end("Congratulations!\n\nPrincess Ann Can Continue"+
-            " Her Pursuit\nOf The Mysterious Stranger!");
+            game.end("Congratulations!\n\nPrincess Ann can continue"+
+            " her pursuit\nof the mysterious stranger!");
             return true;
         }
     }
 }
 
 Block.blocksToDestroy = 0;
+
+class TakeOneGiveOne extends Block {
+    constructor(x, y) {
+        super(x, y);
+        this.setImage("block4.png");
+    }
+    handleCollision() {
+        super.handleCollision();
+        ann.LoseALife();
+        return true;
+    }
+}
+
+new TakeOneGiveOne(600, 250);
 
 class ExtraLifeBlock extends Block {
     constructor(x, y) {
@@ -181,7 +195,7 @@ class ExtraLifeBlock extends Block {
 
 new ExtraLifeBlock(200, 250);
 
-class ExtraBallBlock extends Block {
+class ExtraBallsBlock extends Block {
     constructor(x, y) {
         super(x, y);
         this.setImage("block3.png");
@@ -193,7 +207,7 @@ class ExtraBallBlock extends Block {
     }
 }
 
-new ExtraBallBlock(300, 250);
+new ExtraBallsBlock(300, 250);
 
 for (let i = 0; i < 5; i = i + 1) {
     new Block(200 + i * 48, 200);
